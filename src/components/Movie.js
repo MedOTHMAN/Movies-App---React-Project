@@ -1,11 +1,32 @@
-import React from 'react'
+import React from "react";
+const IMG_API = "https://image.tmdb.org/t/p/w1280";
 
-const Movie = () => {
-    return (
-        <div className="movie">
-            this is a movie component
-        </div>
-    )
-}
+const setVoteClass = (vote) => {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 6) {
+    return "orange";
+  } else {
+    return "red";
+  }
+};
 
-export default Movie
+const Movie = ({ data }) => {
+  return (
+    <div className="movie">
+      <img src={IMG_API + data.poster_path} alt={data.title} />
+      <div className="movie-info">
+        <h3>{data.title}</h3>
+        <span className={`tag ${setVoteClass(data.vote_average)}`}>
+          {data.vote_average}
+        </span>
+      </div>
+      <div className="movie-over">
+        <h2>Overview</h2>
+        <p>{data.overview}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Movie;
